@@ -1,0 +1,13 @@
+{
+  "name": "@tt/lib-cache",
+  "private": true,
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc --build"
+  },
+  "dependencies": {
+    "redis": "^4.0.6"
+  }
+}

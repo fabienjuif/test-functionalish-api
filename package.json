@@ -1,0 +1,20 @@
+{
+  "name": "@tt/workspace",
+  "private": true,
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "build": "run-p \"api-tweets build\" \"lib-cache build\"",
+    "api-tweets": "yarn workspace @tt/api-tweets",
+    "lib-cache": "yarn workspace @tt/lib-cache"
+  },
+  "workspaces": [
+    "libs/*",
+    "api/*"
+  ],
+  "devDependencies": {
+    "@types/node": "^17.0.24",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^4.6.3"
+  }
+}

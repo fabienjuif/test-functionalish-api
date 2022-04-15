@@ -1,0 +1,18 @@
+{
+  "name": "@tt/api-tweets",
+  "private": "true",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc --build",
+    "start": "node ."
+  },
+  "dependencies": {
+    "fastify": "^3.28.0",
+    "ramda": "^0.28.0"
+  },
+  "devDependencies": {
+    "@types/ramda": "^0.28.11"
+  }
+}

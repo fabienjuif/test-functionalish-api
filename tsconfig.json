@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "rootDir": ".",
+    "baseUrl": ".",
+    "module": "commonjs",
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "moduleResolution": "node",
+    "lib": ["es2020"],
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "declaration": true,
+    "declarationMap": true,
+    "strict": true
+  },
+  "exclude": ["node_modules", "**/*.spec.ts"],
+  "paths": {
+    "@tt/lib-cache": ["libs/cache/src/index.ts"]
+  }
+}
