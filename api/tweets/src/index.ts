@@ -1,23 +1,28 @@
 import createFastify from "fastify";
-import { services } from "./services";
-
-const fastify = createFastify({ logger: false });
-
-const drivers = {};
-
-// Declare a route
-fastify.get("/tweets/:id", async (request, reply) => {
-  const r = await services.get(drivers)((request.params as any).id);
-  console.log({ r });
-  return r;
-});
+import { getCacheClient } from "@tt/lib-cache";
+import { CONTROLLERS } from "./controllers";
 
 // Run the server!
 const start = async () => {
+  const drivers = {
+    fastify: createFastify({ logger: false }),
+    cacheClient: await getCacheClient({ flushAll: true }),
+  };
+
+  type Drivers = typeof drivers;
+
+  const init = (controllers: ((drivers: Drivers) => any)[]) => {
+    controllers.forEach((controller) => {
+      controller(drivers);
+    });
+  };
+
+  init(CONTROLLERS);
+
   try {
-    await fastify.listen(3000);
+    await drivers.fastify.listen(3000);
   } catch (err) {
-    fastify.log.error(err);
+    drivers.fastify.log.error(err);
     process.exit(1);
   }
 };

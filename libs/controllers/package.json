@@ -1,0 +1,13 @@
+{
+  "name": "@tt/lib-controllers",
+  "private": true,
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc --build"
+  },
+  "dependencies": {
+    "fastify": "^3.28.0"
+  }
+}

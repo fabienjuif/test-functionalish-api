@@ -1,2 +1,2 @@
 export * from "./withCache";
-export * from "./withCacheClient";
+export * from "./getCacheClient";

@@ -4,9 +4,11 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "build": "run-p \"api-tweets build\" \"lib-cache build\"",
+    "build": "run-p \"api-tweets build\" \"lib-cache build\" \"lib-controllers build\" \"lib-services build\"",
     "api-tweets": "yarn workspace @tt/api-tweets",
-    "lib-cache": "yarn workspace @tt/lib-cache"
+    "lib-cache": "yarn workspace @tt/lib-cache",
+    "lib-controllers": "yarn workspace @tt/lib-controllers",
+    "lib-services": "yarn workspace @tt/lib-services"
   },
   "workspaces": [
     "libs/*",

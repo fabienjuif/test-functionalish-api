@@ -1,4 +1,4 @@
-import * as R from "ramda";
+import { compose } from "ramda";
 import { withCache } from "@tt/lib-cache";
 
 // fake database method
@@ -11,10 +11,9 @@ const fetch = (id: string) => {
   };
 };
 
-export const get = R.compose(
-  // cache
-  withCache((id: string) => id, "2d")
-)((drivers) => async (id: string) => {
-  const tweet = await fetch(id);
-  return tweet;
-});
+export const get = compose(withCache((id: string) => id, "2d"))(
+  (drivers) => async (id: string) => {
+    const tweet = await fetch(id);
+    return tweet;
+  }
+);
