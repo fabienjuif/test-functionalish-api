@@ -4,11 +4,17 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "build": "run-p \"api-tweets build\" \"lib-cache build\" \"lib-controllers build\" \"lib-services build\"",
+    "build": "run-p build:*",
     "api-tweets": "yarn workspace @tt/api-tweets",
     "lib-cache": "yarn workspace @tt/lib-cache",
     "lib-controllers": "yarn workspace @tt/lib-controllers",
-    "lib-services": "yarn workspace @tt/lib-services"
+    "lib-services": "yarn workspace @tt/lib-services",
+    "lib-logger": "yarn workspace @tt/lib-logger",
+    "build:api-tweets": "yarn api-tweets build",
+    "build:lib-cache": "yarn lib-cache build",
+    "build:lib-controllers": "yarn lib-controllers build",
+    "build:lib-services": "yarn lib-services build",
+    "build:lib-logger": "yarn lib-logger build"
   },
   "workspaces": [
     "libs/*",

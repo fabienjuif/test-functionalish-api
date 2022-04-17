@@ -1,12 +1,14 @@
 import createFastify from "fastify";
 import { getCacheClient } from "@tt/lib-cache";
 import { CONTROLLERS } from "./controllers";
+import { getLogger } from "@tt/lib-logger";
 
 // Run the server!
 const start = async () => {
   const drivers = {
     fastify: createFastify({ logger: false }),
     cacheClient: await getCacheClient({ flushAll: true }),
+    logger: getLogger(),
   };
 
   type Drivers = typeof drivers;

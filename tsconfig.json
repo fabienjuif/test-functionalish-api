@@ -19,6 +19,7 @@
   "paths": {
     "@tt/lib-cache": ["libs/cache/src/index.ts"],
     "@tt/lib-controllers": ["libs/controllers/src/index.ts"],
-    "@tt/lib-services": ["libs/services/src/index.ts"]
+    "@tt/lib-services": ["libs/services/src/index.ts"],
+    "@tt/lib-logger": ["libs/logger/src/index.ts"]
   }
 }
