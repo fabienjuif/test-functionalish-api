@@ -3,7 +3,7 @@ import { createLogger, format, transports } from "winston";
 const { combine, timestamp, prettyPrint, simple, colorize } = format;
 
 export const getLogger = () => {
-  const logger = createLogger({
+  return createLogger({
     format: combine(timestamp(), prettyPrint({ colorize: true })),
     transports: [
       new transports.Console({
@@ -11,6 +11,4 @@ export const getLogger = () => {
       }),
     ],
   });
-
-  return logger;
 };

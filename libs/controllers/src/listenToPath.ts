@@ -4,15 +4,14 @@ export const listenToPath =
   (method: HTTPMethods, path: string) =>
   (fn: (drivers: any) => (...args: any[]) => Promise<any>) =>
   (drivers: { fastify: FastifyInstance }) => {
-    const fnWithDrivers = fn(drivers);
+    const { fastify, ...otherDrivers } = drivers;
 
-    console.log(method, path);
-
-    drivers.fastify.route({
+    fastify.route({
       method,
       url: path,
-      handler: async (req, res) => {
-        return fnWithDrivers(req, res);
-      },
+      // remove fastify from drivers
+      handler: fn(otherDrivers),
     });
+
+    console.log("Listen", method, path);
   };

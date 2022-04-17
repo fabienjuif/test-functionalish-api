@@ -2,7 +2,9 @@ export const withServices =
   (services: Record<string, any>) =>
   (fn: (drivers: any) => (...args: any[]) => Promise<any>) =>
   (drivers: any) => {
-    const driversWithServices = {
+    console.log("Inject services", Object.keys(services));
+    return fn({
+      ...drivers,
       services: Object.entries(services).reduce(
         (acc, [key, service]) => ({
           ...acc,
@@ -10,7 +12,5 @@ export const withServices =
         }),
         {}
       ),
-    };
-
-    return (...args: any[]) => fn(driversWithServices)(...args);
+    });
   };

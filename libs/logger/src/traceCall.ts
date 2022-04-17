@@ -4,6 +4,7 @@ export const traceCall =
   (options: { mapArgs?: (...args: any[]) => string; level?: string } = {}) =>
   (fn: (drivers: any) => (...args: any[]) => Promise<any>) =>
   (drivers: any) => {
+    console.log("Inject trace-call");
     const fnWithDrivers = fn(drivers);
 
     return async (...args: any[]) => {
