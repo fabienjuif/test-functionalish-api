@@ -12,6 +12,7 @@ type WithCacheClientOptions = {
 export const getCacheClient = async ({
   flushAll,
 }: WithCacheClientOptions = {}) => {
+  console.log("Instanciating redis cache...");
   const cacheClient = await createClient();
   await cacheClient.connect();
 

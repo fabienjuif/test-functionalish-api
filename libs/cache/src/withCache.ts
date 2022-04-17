@@ -9,6 +9,7 @@ export const withCache =
   (keyResolver: (...args: any[]) => string, ttl: string) =>
   (fn: (drivers: DriversWithCache) => (...args: any[]) => unknown) =>
   (drivers: Partial<Omit<DriversWithCache, "cache">>) => {
+    console.log("Adding cache");
     const driversWithCache = {
       ...drivers,
       cache: drivers.cacheClient,

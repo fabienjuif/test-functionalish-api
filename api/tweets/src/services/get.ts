@@ -2,6 +2,7 @@ import { compose } from "ramda";
 import { withCache } from "@tt/lib-cache";
 
 // fake database method
+// FIXME: make it a driver
 const fetch = (id: string) => {
   console.log("[db] fetching...", id);
 
