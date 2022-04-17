@@ -10,11 +10,13 @@
     "lib-controllers": "yarn workspace @tt/lib-controllers",
     "lib-services": "yarn workspace @tt/lib-services",
     "lib-logger": "yarn workspace @tt/lib-logger",
+    "lib-postgres": "yarn workspace @tt/lib-postgres",
     "build:api-tweets": "yarn api-tweets build",
     "build:lib-cache": "yarn lib-cache build",
     "build:lib-controllers": "yarn lib-controllers build",
     "build:lib-services": "yarn lib-services build",
-    "build:lib-logger": "yarn lib-logger build"
+    "build:lib-logger": "yarn lib-logger build",
+    "build:lib-postgres": "yarn lib-postgres build"
   },
   "workspaces": [
     "libs/*",

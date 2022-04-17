@@ -2,7 +2,8 @@ import createFastify from "fastify";
 
 export const startHttpServer = async (
   drivers: any,
-  controllers: ((drivers: any) => any)[]
+  controllers: ((drivers: any) => any)[],
+  close?: () => Promise<any>[]
 ) => {
   const fastify = createFastify({ logger: false });
 
@@ -19,7 +20,7 @@ export const startHttpServer = async (
     console.warn("caught interrupt signal", sigName);
 
     console.debug("closing all sockets ...");
-    await Promise.all([fastify.close()]);
+    await Promise.all([fastify.close()].concat(close ? close() : []));
   };
 
   ["SIGUSR1", "SIGINT", "SIGTERM", "SIGPIPE", "SIGHUP", "SIGBREAK"].forEach(
@@ -29,7 +30,7 @@ export const startHttpServer = async (
   );
 
   try {
-    await drivers.fastify.listen(process.env.PORT ?? 3000);
+    await fastify.listen(process.env.PORT ?? 3000);
   } catch (err) {
     console.error(err);
     process.exit(1);
