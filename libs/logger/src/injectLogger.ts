@@ -6,7 +6,7 @@ let baseLogger: Logger;
 const loggers: Map<string, Logger> = new Map();
 
 export const injectLogger =
-  (name: string) =>
+  (domain: string) =>
   (fn: (drivers: any) => (...args: any[]) => Promise<any>) =>
   (drivers: any) => {
     if (!baseLogger) {
@@ -20,14 +20,14 @@ export const injectLogger =
       });
     }
 
-    let logger = loggers.get(name);
+    let logger = loggers.get(domain);
     if (!logger) {
-      console.log("[logger] create logger", name);
-      logger = baseLogger.child({ service: name });
-      loggers.set(name, logger);
+      console.log("[logger] create logger", domain);
+      logger = baseLogger.child({ domain });
+      loggers.set(domain, logger);
     }
 
-    console.log("[logger] inject", name);
+    console.log("[logger] inject", domain);
 
     return fn({
       ...drivers,

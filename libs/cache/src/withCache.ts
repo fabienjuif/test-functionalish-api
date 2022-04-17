@@ -15,6 +15,8 @@ export const withCache =
       cache: drivers.cacheClient,
     };
 
+    const fnDrivers = fn(driversWithCache);
+
     return async (...args: any[]): Promise<any> => {
       const key = keyResolver(...args);
 
@@ -32,7 +34,7 @@ export const withCache =
 
       console.log("[cache] not hit", key);
 
-      const res = await fn(driversWithCache)(...args);
+      const res = await fnDrivers(...args);
 
       if (res) {
         await driversWithCache.cache.set(key, JSON.stringify(res));

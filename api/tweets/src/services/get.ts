@@ -3,9 +3,8 @@ import { withCache } from "@tt/lib-cache";
 import { injectLogger, traceCall } from "@tt/lib-logger";
 
 export const get = compose(
-  // TODO: rename it withLoggerContext
-  injectLogger("tweets-get"),
-  traceCall(),
+  injectLogger("tweets"),
+  traceCall({ name: "get" }),
   withCache((id: string) => id, "2d")
 )((drivers) => async (id: string) => {
   const res = await drivers.pg.query(

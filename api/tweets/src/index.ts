@@ -8,10 +8,13 @@ const start = async () => {
 
   await startHttpServer(
     {
+      // TODO: lazy cache instanciation
       cacheClient: await getCacheClient({ flushAll: true }),
+      // TODO: lazy pg instanciation
       pg,
     },
     CONTROLLERS,
+    // TODO: event emitter for drivers ?
     () => [pg.close()]
   );
 };

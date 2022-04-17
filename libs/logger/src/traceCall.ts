@@ -1,7 +1,13 @@
 import { Logger } from "winston";
 
 export const traceCall =
-  (options: { mapArgs?: (...args: any[]) => string; level?: string } = {}) =>
+  (
+    options: {
+      name?: string;
+      mapArgs?: (...args: any[]) => string;
+      level?: string;
+    } = {}
+  ) =>
   (fn: (drivers: any) => (...args: any[]) => Promise<any>) =>
   (drivers: any) => {
     console.log("Inject trace-call");
@@ -17,6 +23,11 @@ export const traceCall =
       logger.log({
         level: options.level ?? "info",
         message: options.mapArgs ? options.mapArgs(...args) : args.join(", "),
+        meta: options.name
+          ? {
+              name: options.name,
+            }
+          : undefined,
       });
 
       return fnWithDrivers(...args);
