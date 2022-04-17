@@ -9,7 +9,6 @@
     "start": "node ."
   },
   "dependencies": {
-    "fastify": "^3.28.0",
     "ramda": "^0.28.0"
   },
   "devDependencies": {
