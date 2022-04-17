@@ -1,43 +1,70 @@
+import { createClient } from "redis";
+
+type Cache = ReturnType<typeof createClient>;
+
 type DriversWithCache = {
-  cache: {
-    set: (key: string, data: any) => Promise<void>;
-  };
+  getCache: () => Promise<Cache>;
   [key: string]: any;
 };
 
+const caches: Map<string, Cache> = new Map();
+
 export const withCache =
-  (keyResolver: (...args: any[]) => string, ttl: string) =>
+  (
+    name: string,
+    keyResolver: (...args: any[]) => string,
+    { flushAll }: { flushAll?: boolean } = {}
+  ) =>
   (fn: (drivers: DriversWithCache) => (...args: any[]) => unknown) =>
   (drivers: Partial<Omit<DriversWithCache, "cache">>) => {
-    console.log("Inject cache");
+    const getCache = async () => {
+      let cache = caches.get(name);
+
+      if (!cache) {
+        console.log("[cache] create cache", name);
+        cache = await createClient();
+        await cache.connect();
+        if (flushAll) {
+          await cache.flushAll();
+        }
+        caches.set(name, cache);
+      }
+
+      return cache;
+    };
+
+    console.log("[cache] inject");
     const driversWithCache = {
       ...drivers,
-      cache: drivers.cacheClient,
+      getCache,
     };
 
     const fnDrivers = fn(driversWithCache);
 
     return async (...args: any[]): Promise<any> => {
+      const cache = await getCache();
+
       const key = keyResolver(...args);
+      const fullKey = `${name}:${key}`;
 
-      console.log("[cache] looking for", key);
+      console.log("[cache] looking for", fullKey);
 
-      const o = await driversWithCache.cache.get(key);
+      const o = await cache.get(fullKey);
       if (o) {
-        console.log("[cache] HIT!", key);
+        console.log("[cache] HIT!", fullKey);
         try {
           return JSON.parse(o);
         } catch {
-          await driversWithCache.cache.del([key]);
+          await cache.del([fullKey]);
         }
       }
 
-      console.log("[cache] not hit", key);
+      console.log("[cache] not hit", fullKey);
 
       const res = await fnDrivers(...args);
 
       if (res) {
-        await driversWithCache.cache.set(key, JSON.stringify(res));
+        await cache.set(fullKey, JSON.stringify(res));
       }
 
       return res;
