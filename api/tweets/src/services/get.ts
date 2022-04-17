@@ -5,7 +5,7 @@ import { injectLogger, traceCall } from "@tt/lib-logger";
 export const get = compose(
   injectLogger("tweets"),
   traceCall({ name: "get" }),
-  withCache("tweets", (id: string) => id)
+  withCache("tweets", (id: string) => id, { flushAll: true })
 )((drivers) => async (id: string) => {
   const res = await drivers.pg.query(
     "select * from tweets where id = $1::text limit 1",
