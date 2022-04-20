@@ -21,6 +21,7 @@
     "@tt/lib-controllers": ["libs/controllers/src/index.ts"],
     "@tt/lib-services": ["libs/services/src/index.ts"],
     "@tt/lib-logger": ["libs/logger/src/index.ts"],
-    "@tt/lib-postgres": ["libs/postgres/src/index.ts"]
+    "@tt/lib-postgres": ["libs/postgres/src/index.ts"],
+    "@tt/service-tweets": ["service/tweets/src/index.ts"]
   }
 }

@@ -1,14 +1,12 @@
 import createFastify from "fastify";
 
 export const startHttpServer = async (
-  drivers: any,
   controllers: ((drivers: any) => any)[],
   close?: () => Promise<any>[]
 ) => {
   const fastify = createFastify({ logger: false });
 
   const driversWithFastify = {
-    ...drivers,
     fastify,
   };
 

@@ -11,16 +11,19 @@
     "lib-services": "yarn workspace @tt/lib-services",
     "lib-logger": "yarn workspace @tt/lib-logger",
     "lib-postgres": "yarn workspace @tt/lib-postgres",
+    "service-tweets": "yarn workspace @tt/service-tweets",
     "build:api-tweets": "yarn api-tweets build",
     "build:lib-cache": "yarn lib-cache build",
     "build:lib-controllers": "yarn lib-controllers build",
     "build:lib-services": "yarn lib-services build",
     "build:lib-logger": "yarn lib-logger build",
-    "build:lib-postgres": "yarn lib-postgres build"
+    "build:lib-postgres": "yarn lib-postgres build",
+    "build:service-tweets": "yarn service-tweets build"
   },
   "workspaces": [
     "libs/*",
-    "api/*"
+    "api/*",
+    "services/*"
   ],
   "devDependencies": {
     "@types/node": "^17.0.24",
