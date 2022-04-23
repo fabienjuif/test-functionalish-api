@@ -1,13 +1,13 @@
-import { Pool, PoolConfig } from "pg";
+import { Pool, PoolConfig } from 'pg';
 
 type PgDriver = {
-  query: Pool["query"];
+  query: Pool['query'];
   collection: (tableName: string) => {
     getById: <T>(ids: Record<string, unknown>) => Promise<T | undefined>;
   };
 };
 
-type MinimalPgDriver = Omit<PgDriver, "collection">;
+type MinimalPgDriver = Omit<PgDriver, 'collection'>;
 
 type DriversWithPg = {
   pg: PgDriver;
@@ -21,19 +21,19 @@ export const close = async () => {
 };
 
 export const getById =
-  ({ pg }: Omit<DriversWithPg, "pg"> & { pg: MinimalPgDriver }) =>
+  ({ pg }: Omit<DriversWithPg, 'pg'> & { pg: MinimalPgDriver }) =>
   (tableName: string) =>
   async <T>(ids: Record<string, unknown>): Promise<T | undefined> => {
     const idsEntries = Object.entries(ids);
     const where = idsEntries.reduce(
       (acc, [key], index) => `${acc} ${key}=$${index + 1}`,
-      ""
+      '',
     );
 
     const q = `select * from ${tableName} where ${where}`;
     const res = await pg.query(
       q,
-      idsEntries.map(([, value]) => value)
+      idsEntries.map(([, value]) => value),
     );
 
     if (res.rowCount > 1) {
@@ -51,31 +51,31 @@ export const injectPg =
   (config: PoolConfig) =>
   (fn: (drivers: DriversWithPg) => (...args: any[]) => Promise<any>) =>
   (drivers: any) => {
-    const key = `${config.user ?? "postgres"}:${config.host ?? "localhost"}:${
+    const key = `${config.user ?? 'postgres'}:${config.host ?? 'localhost'}:${
       config.port ?? 5432
-    }/${config.database ?? ""}`;
+    }/${config.database ?? ''}`;
 
     let pool = pools.get(key);
     if (!pool) {
-      console.log("[pg] Instanciating pool...");
+      console.log('[pg] Instanciating pool...');
       pool = new Pool(config);
 
-      pool.on("error", (err, client) => {
-        console.error("[pg] Unexpected error on idle client", err);
+      pool.on('error', (err, client) => {
+        console.error('[pg] Unexpected error on idle client', err);
         process.exit(-1);
       });
     }
 
     const minimalPgDriver: MinimalPgDriver = {
-      query: (async (...args: Parameters<Pool["query"]>) => {
-        console.log("[pg]", args[0]);
+      query: (async (...args: Parameters<Pool['query']>) => {
+        console.log('[pg]', args[0]);
 
         if (!pool) {
-          throw new Error("[pg] Pool is destroyed");
+          throw new Error('[pg] Pool is destroyed');
         }
 
         return pool.query(...args);
-      }) as Pool["query"],
+      }) as Pool['query'],
     };
 
     const pgDriver: PgDriver = {

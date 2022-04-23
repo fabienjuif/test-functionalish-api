@@ -1,4 +1,4 @@
-import { FastifyInstance, HTTPMethods } from "fastify";
+import { FastifyInstance, HTTPMethods } from 'fastify';
 
 export const listenToPath =
   (method: HTTPMethods, path: string) =>
@@ -13,5 +13,5 @@ export const listenToPath =
       handler: fn(otherDrivers),
     });
 
-    console.log("Listen", method, path);
+    console.log('Listen', method, path);
   };

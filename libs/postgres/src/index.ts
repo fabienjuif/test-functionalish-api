@@ -1,2 +1,1 @@
-export * from "./getPg";
-export * from "./injectPg";
+export * from './injectPg';

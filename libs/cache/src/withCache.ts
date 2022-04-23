@@ -1,4 +1,4 @@
-import { createClient } from "redis";
+import { createClient } from 'redis';
 
 type Cache = ReturnType<typeof createClient>;
 
@@ -12,13 +12,13 @@ const caches: Map<string, Cache> = new Map();
 export const withCache = (
   name: string,
   keyResolver: (...args: any[]) => string,
-  { flushAll }: { flushAll?: boolean } = {}
+  { flushAll }: { flushAll?: boolean } = {},
 ) => {
   const getCache = async () => {
     let cache = caches.get(name);
 
     if (!cache) {
-      console.log("[cache] create cache", name);
+      console.log('[cache] create cache', name);
       cache = await createClient();
       await cache.connect();
       if (flushAll) {
@@ -31,8 +31,8 @@ export const withCache = (
   };
 
   return (fn: (drivers: DriversWithCache) => (...args: any[]) => unknown) =>
-    (drivers: Partial<Omit<DriversWithCache, "cache">>) => {
-      console.log("[cache] inject");
+    (drivers: Partial<Omit<DriversWithCache, 'cache'>>) => {
+      console.log('[cache] inject');
       const fnDrivers = fn({
         ...drivers,
         getCache,
@@ -44,11 +44,11 @@ export const withCache = (
         const key = keyResolver(...args);
         const fullKey = `${name}:${key}`;
 
-        console.log("[cache] looking for", fullKey);
+        console.log('[cache] looking for', fullKey);
 
         const o = await cache.get(fullKey);
         if (o) {
-          console.log("[cache] HIT!", fullKey);
+          console.log('[cache] HIT!', fullKey);
           try {
             return JSON.parse(o);
           } catch {
@@ -56,7 +56,7 @@ export const withCache = (
           }
         }
 
-        console.log("[cache] not hit", fullKey);
+        console.log('[cache] not hit', fullKey);
 
         const res = await fnDrivers(...args);
 

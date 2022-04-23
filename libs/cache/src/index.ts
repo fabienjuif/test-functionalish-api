@@ -1,1 +1,1 @@
-export * from "./withCache";
+export * from './withCache';

@@ -1,4 +1,4 @@
-import { createLogger, format, Logger, transports } from "winston";
+import { createLogger, format, Logger, transports } from 'winston';
 
 const { combine, timestamp, prettyPrint, simple, colorize } = format;
 
@@ -22,12 +22,12 @@ export const injectLogger =
 
     let logger = loggers.get(domain);
     if (!logger) {
-      console.log("[logger] create logger", domain);
+      console.log('[logger] create logger', domain);
       logger = baseLogger.child({ domain });
       loggers.set(domain, logger);
     }
 
-    console.log("[logger] inject", domain);
+    console.log('[logger] inject', domain);
 
     return fn({
       ...drivers,
