@@ -18,7 +18,9 @@
     "build:lib-services": "yarn lib-services build",
     "build:lib-logger": "yarn lib-logger build",
     "build:lib-postgres": "yarn lib-postgres build",
-    "build:service-tweets": "yarn service-tweets build"
+    "build:service-tweets": "yarn service-tweets build",
+    "ci:prettier": "prettier --check .",
+    "ci": "run-p ci:*"
   },
   "workspaces": [
     "libs/*",
@@ -30,9 +32,5 @@
     "npm-run-all": "^4.1.5",
     "prettier": "^2.6.2",
     "typescript": "^4.6.3"
-  },
-  "prettier": {
-    "singleQuote": true,
-    "trailingComma": "all"
   }
 }
