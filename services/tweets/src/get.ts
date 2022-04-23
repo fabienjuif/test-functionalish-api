@@ -8,11 +8,8 @@ export const get = compose(
   traceCall({ name: "get" }),
   withCache("tweets", (id: string) => id, { flushAll: true }),
   injectPg({ user: "postgres", password: "coucou" })
-)((drivers: any) => async (id: string) => {
-  const res = await drivers.pg.query(
-    "select * from tweets where id = $1::text limit 1",
-    [id]
-  );
-  // TODO: handle 404
-  return res.rows[0];
+)((drivers) => async (id: string) => {
+  const collection = drivers.pg.collection("tweets");
+
+  return collection.getById({ id });
 });
