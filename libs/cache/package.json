@@ -5,7 +5,10 @@
   "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
-    "build": "tsc --build"
+    "build": "tsc --build",
+    "prettier": "prettier --check . --config ../../.prettierrc --ignore-path ../../.prettierignore",
+    "buildSwc": "swc src -d dist --config-file ../../.swcrc",
+    "clear": "rm -Rf node_modules dist .turbo *.log"
   },
   "dependencies": {
     "redis": "^4.0.6"

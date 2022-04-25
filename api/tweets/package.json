@@ -1,15 +1,23 @@
 {
   "name": "@tt/api-tweets",
-  "private": "true",
+  "private": true,
   "version": "1.0.0",
   "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
     "build": "tsc --build",
-    "start": "node ."
+    "start": "node .",
+    "dev": "node -r @swc-node/register src/index.ts",
+    "prettier": "prettier --check . --config ../../.prettierrc --ignore-path ../../.prettierignore",
+    "buildSwc": "swc src -d dist --config-file ../../.swcrc",
+    "clear": "rm -Rf node_modules dist .turbo *.log"
   },
   "dependencies": {
-    "ramda": "^0.28.0"
+    "ramda": "^0.28.0",
+    "@tt/lib-controllers": "^1.0.0",
+    "@tt/lib-postgres": "^1.0.0",
+    "@tt/lib-services": "^1.0.0",
+    "@tt/service-tweets": "^1.0.0"
   },
   "devDependencies": {
     "@types/ramda": "^0.28.11"
