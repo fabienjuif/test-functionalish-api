@@ -28,7 +28,10 @@ export const startHttpServer = async (
   );
 
   try {
-    await fastify.listen(process.env.PORT ?? 3000);
+    const port = process.env.PORT ?? 3000;
+    const host = process.env.HOST ?? '0.0.0.0';
+    await fastify.listen(port, host);
+    console.log('[fastify] Listening to', { host, port });
   } catch (err) {
     console.error(err);
     process.exit(1);

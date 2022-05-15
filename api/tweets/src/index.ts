@@ -1,9 +1,6 @@
-import { startHttpServer } from '@tt/lib-controllers';
-import { close as closePg } from '@tt/lib-postgres';
-import { get } from './get';
+import * as path from 'path';
+import { loadConf } from '@tt/lib-conf';
 
-startHttpServer(
-  [get],
-  // TODO: event emitter for drivers ?
-  () => [closePg()],
-);
+loadConf({ filePath: path.resolve(__dirname, '../env.yaml') })
+  .then(() => import('./start'))
+  .then((mod: any) => mod.start());

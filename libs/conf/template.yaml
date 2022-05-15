@@ -1,0 +1,4 @@
+templates:
+  default-database: &default-database
+    user: 'postgres'
+    password: 'coucou'

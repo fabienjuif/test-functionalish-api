@@ -13,9 +13,10 @@
   },
   "dependencies": {
     "ramda": "^0.28.0",
-    "@tt/lib-postgres": "^1.0.0",
+    "@tt/lib-cache": "^1.0.0",
+    "@tt/lib-conf": "^1.0.0",
     "@tt/lib-logger": "^1.0.0",
-    "@tt/lib-cache": "^1.0.0"
+    "@tt/lib-postgres": "^1.0.0"
   },
   "devDependencies": {
     "@types/ramda": "^0.28.11"
